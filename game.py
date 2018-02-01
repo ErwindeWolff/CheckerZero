@@ -216,10 +216,10 @@ class Game():
         '''
 	def game_over(self):
 		return (len(self.pieces_one) == 0 
-					or len(self.pieces_two) == 0 
-					or len(self.get_moves()) == 0
-					or self.moves_since_hit >= 40
-					or self.path.get(self.board, 0) >= 3)
+				or len(self.pieces_two) == 0 
+				or len(self.get_moves()) == 0
+				or self.moves_since_hit >= 40
+				or self.path.get(self.board, 0) >= 3)
 				
 				
 	'''
