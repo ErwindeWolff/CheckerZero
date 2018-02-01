@@ -17,7 +17,7 @@ game = Game(rows=8, columns=8)
 
 # Set player 1. If network player: choose network to load (think of the path)
 p1 = Netplayer(C=1, nr_samples=40, nondeterm_moves=15)
-p1.load_network("/home/endarmir/Downloads/Project/","checkerzero_1")
+p1.load_network("E:/KI/Master/2e_jaar/CCN/Project/networks/","checkerzero_25")
 
 # Set player 2. If network player: choose network to load (think of the path)
 #p2 = Netplayer(C=1, nr_samples=40, nondeterm_moves=15)
