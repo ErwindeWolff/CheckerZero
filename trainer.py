@@ -11,7 +11,7 @@ import os, os.path
 
 class Trainer():
 
-	def __init__(self, epochs, mcts_samples, batch_size, path, filename, load_network=False):
+	def __init__(self, epochs, mcts_samples, path, filename, load_network=False):
 	
 		# Create player
 		self.player = Netplayer(C=1, nr_samples=mcts_samples, nondeterm_moves=15)
@@ -19,16 +19,16 @@ class Trainer():
 		# Create game
 		self.game = Game(rows=8, columns=8)
 
-                # Save model
+                # Set model
 		self.model = self.player.network
 		
-		# Save epochs
+		# Set epochs
 		self.epochs = epochs
 
-		# Save batch size
-		self.batch_size = batch_size
+		# Set batch size
+		self.batch_size = 1
 		
-		# Save paths
+		# Set paths
 		self.path = path
 		self.filename = filename
 		
@@ -157,5 +157,5 @@ class Trainer():
 
 
 # Start the training process
-trainer = Trainer(500, 400, 1, "E:/KI/Master/2e_jaar/CCN/Project/networks/", "checkerzero")
+trainer = Trainer(500, 400, "E:/KI/Master/2e_jaar/CCN/Project/networks/", "checkerzero")
 trainer.train()
