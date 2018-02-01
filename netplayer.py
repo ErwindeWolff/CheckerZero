@@ -105,7 +105,7 @@ class Netplayer():
 	'''
 	def update_state(self, move):
 
-                # Create new leaf
+				# Create new leaf
 		next_state = Node()
 
 		# Try to find branches that match the played move
@@ -155,8 +155,8 @@ class Netplayer():
 
 
 	'''
-                Performs the actual Monte Carlo Tree search from a certain state in a game
-                - game: the game being played
+				Performs the actual Monte Carlo Tree search from a certain state in a game
+				- game: the game being played
 		- state: state of the board
 		
 		Returns the winner for this particular game and state
@@ -185,8 +185,8 @@ class Netplayer():
 			padded_input[0, :, :, :] = net_input
 			(policy, value) = self.network.get_policy_and_value(padded_input.astype(np.float32))
 
-                        # Add noise over policy
-                        policy = [(0.75*pol+0.25*random()) for pol in policy]
+			# Add noise over policy
+			policy = [(0.75*pol+0.25*random()) for pol in policy]
 			
 			# Get relevant scores from posterior policy
 			distribution = self.get_policy_dist(game, moves, policy)
@@ -289,9 +289,9 @@ class Netplayer():
 		return sample
 
 
-        '''
-                Loads a trained model in the player
-        '''
+		'''
+				Loads a trained model in the player
+		'''
 
 	def load_network(self, path, save_name):
 		save_path = path + save_name

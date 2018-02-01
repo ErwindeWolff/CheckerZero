@@ -16,13 +16,14 @@ random.seed(42)
 game = Game(rows=8, columns=8)
 
 # Set player 1. If network player: choose network to load (think of the path)
-p1 = Netplayer(C=1, nr_samples=40, nondeterm_moves=15)
-p1.load_network("/home/endarmir/Downloads/Project/","checkerzero_1")
+p1 = MCTSPlayer(nr_samples=1000)
+#p1 = Netplayer(C=1, nr_samples=40, nondeterm_moves=15)
+#p1.load_network("/home/endarmir/Downloads/Project/","checkerzero_1")
 
 # Set player 2. If network player: choose network to load (think of the path)
-p2 = Netplayer(C=1, nr_samples=40, nondeterm_moves=15)
-p2.load_network("/home/endarmir/Downloads/Project/","checkerzero_20")
-#p2 = RandomPlayer()
+#p2 = Netplayer(C=1, nr_samples=40, nondeterm_moves=15)
+#p2.load_network("/home/endarmir/Downloads/Project/","checkerzero_20")
+p2 = RandomPlayer()
 players = [p1, p2]
 
 # Play epochs amount of games

@@ -11,13 +11,13 @@ import numpy as np
 
 """ Definition of a Convblock """
 class ConvBlock(Chain):
-        
-        '''
+		
+	'''
 		Architecture of a convolutional block
 		
 		Args:
 			n_out: Amount of filters the convolutional layer outputs
-        '''
+	'''
 	def __init__(self, n_out):
 
 		super(ConvBlock, self).__init__()
@@ -27,8 +27,8 @@ class ConvBlock(Chain):
 			self.bn = L.BatchNormalization(n_out)
 
 	'''
-                Function call which takes network input x and outputs the result of a convolutional block
-        '''
+				Function call which takes network input x and outputs the result of a convolutional block
+	'''
 	def __call__(self, x):
 		y = F.relu(self.bn(self.conv(x)))
 		return y
@@ -36,13 +36,13 @@ class ConvBlock(Chain):
 
 """ Definition of a Resblock """
 class ResBlock(Chain):
-        
-        '''
+		
+	'''
 		Architecture of a residual block
 		
 		Args:
 			n_out: Amount of filters the convolutional layers output
-        '''
+	'''
 	def __init__(self, n_out):
 		super(ResBlock, self).__init__()
 		with self.init_scope():
@@ -54,8 +54,8 @@ class ResBlock(Chain):
 			self.res_bn2 = L.BatchNormalization(n_out)
 
 	'''
-                Function call which takes network input x and outputs the result of a residual block
-        '''
+				Function call which takes network input x and outputs the result of a residual block
+	'''
 	def __call__(self, x):
 		h1 = F.relu(self.res_bn1(self.res_conv1(x)))
 		h2 = F.relu(self.res_bn2(self.res_conv2(h1)))
@@ -66,8 +66,8 @@ class ResBlock(Chain):
 
 """ Definition of the CheckerZero network made out of Convblocks, Resblocks and the two tails """
 class NetworkZero(Chain):
-        
-        '''
+		
+	'''
 		Architecture of the network
 		
 		Args:
@@ -75,7 +75,7 @@ class NetworkZero(Chain):
 			nr_resblock: Amount of residual blocks the network uses
 			nr_policyoutputs: Amount of outputs the policy network should generate
 	
-        '''
+	'''
 	def __init__(self, output_size, nr_resblocks=9, nr_policyoutputs=4096):
 
 		super(NetworkZero, self).__init__()
@@ -102,8 +102,8 @@ class NetworkZero(Chain):
 		self.add_link('value_fc2', L.Linear(None, 1))   
 	
 	'''
-                Function call which takes board input x and outputs the policy vector and value
-        '''
+				Function call which takes board input x and outputs the policy vector and value
+	'''
 	def __call__(self, x):
 		# General function calls
 		h = self.convblock(x)
@@ -126,9 +126,9 @@ class NetworkZero(Chain):
 
 """ Definition of the classifier used by the CheckerZero network to determine the output of the network and the loss """
 class Classifier(Chain):
-        '''
+	'''
 		Classifier for NetworkZero which is initialized in this class
-        '''
+	'''
 	def __init__(self, output_size, nr_resblocks, nr_policyoutputs):
 
 		super(Classifier, self).__init__()
@@ -137,8 +137,8 @@ class Classifier(Chain):
 	
 	
 	'''
-                Returns policy vector and value in numpy when input x is given to the network
-        '''
+				Returns policy vector and value in numpy when input x is given to the network
+	'''
 	def get_policy_and_value(self, x):
 		# Predict values from input with network and tranform to numpy
 		y_policy, y_value = self.predictor(x)
@@ -148,8 +148,8 @@ class Classifier(Chain):
 	
 	
 	'''
-                Function call which takes input x, and the expected values for the policy and the target
-        '''
+				Function call which takes input x, and the expected values for the policy and the target
+	'''
 	def __call__(self, x, t_policy, t_value):
 		# Get a prediction from the network given data
 		y_policy, y_value = self.predictor(x)
@@ -160,9 +160,9 @@ class Classifier(Chain):
 		return loss
 
 
-        '''
-                Calculate loss function
-        '''
+	'''
+				Calculate loss function
+	'''
 	def loss_function(self, y_policy, t_policy, y_value, t_value):
 		y_policy = y_policy.data[0].squeeze()
 		loss_policy = F.matmul(t_policy, F.log(y_policy),transa = True)
@@ -170,4 +170,4 @@ class Classifier(Chain):
 		sum_loss = loss_value-loss_policy
 		
 		return sum_loss
-        
+		
